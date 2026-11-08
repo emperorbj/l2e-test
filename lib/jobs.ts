@@ -6,6 +6,7 @@ export type JobListing = {
   id: string
   title: string
   details: string[]
+  specializationTrackId?: string
 }
 
 type JsonObject = Record<string, unknown>
@@ -50,7 +51,12 @@ function toListing(raw: unknown): JobListing | null {
   ]
     .map(text)
     .filter((value): value is string => Boolean(value))
-  return { id, title: title ?? "Untitled listing", details }
+  return {
+    id,
+    title: title ?? "Untitled listing",
+    details,
+    specializationTrackId: text(raw.specializationTrackId),
+  }
 }
 
 export async function fetchJobListings(): Promise<JobListing[]> {

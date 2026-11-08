@@ -13,6 +13,9 @@ export const metadata: Metadata = {
 function applyUrl(listing: JobListing): string {
   const url = new URL("/signup/intern", tnFrontendUrl())
   url.searchParams.set("jobListingId", listing.id)
+  if (listing.specializationTrackId) {
+    url.searchParams.set("specializationTrackId", listing.specializationTrackId)
+  }
   return url.toString()
 }
 
